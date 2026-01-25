@@ -1,14 +1,22 @@
-import { RegisterService } from "../services/auth.service.js";
-import { registerSchema } from "../validation/auth.validation.js";
-import { successResponse, errorResponse } from "../utils/response.js";
+import { LoginService, RegisterService } from "../services/auth.service.js"
+import { successResponse } from "../utils/response.js";
 
+// Register Controller
 export const RegisterController = async (req, res, next) => {
-  const Registerpayload = req.body;
-  console.log("Registerpayload:", Registerpayload);
   try {
-    const validatedData = registerSchema.parse(Registerpayload); //validate data
-    const user = await RegisterService(validatedData);
+    const user = await RegisterService(req.body);
     return successResponse(res, 201, "User registered successfully", user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Login Controller
+export const LoginController = async (req, res, next) => {
+  const credentials = req.body;
+  try {
+    const user = await LoginService(credentials.email, credentials.password);
+    return successResponse(res, 200, "User logged in successfully", user);
   } catch (error) {
     next(error);
   }

@@ -17,3 +17,11 @@ export const registerSchema = z.object({
     .regex(/[0-9]/, "Must contain one number")
     .regex(/[^A-Za-z0-9]/, "Must contain one special character"),
 });
+
+
+
+
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
