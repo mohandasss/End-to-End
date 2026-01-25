@@ -1,0 +1,27 @@
+# Node
+node_modules/
+npm-debug.log*
+package-lock.json
+.env
+.env.local
+.DS_Store
+.vscode/
+.idea/
+/dist
+/build
+coverage/
+# Vite
+/.rpt2_cache/
+/.rts2_cache_cjs/
+/.rts2_cache_es/
+
+# Prisma
+/prisma/migrations/
+/prisma/.migration_lock.toml
+
+# Logs
+logs
+*.log
+
+# OS files
+Thumbs.db
