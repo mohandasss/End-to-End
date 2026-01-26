@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
 
-export const generateToken = (payload) => {
+export const generateAccessToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
 };
 
-export const verifyToken = (token) => {
+export const verifyAccessToken = (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {

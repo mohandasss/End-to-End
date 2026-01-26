@@ -4,7 +4,7 @@ import authRoutes from "./src/routes/auth.routes.js";
 import userRoutes from "./src/routes/user.routes.js";
 import { errorHandler } from "./src/middlewares/error.middleware.js";
 import getPrisma from "./src/config/db.js";
-
+import cookieParser from "cookie-parser";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -14,7 +14,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Server is running 🚀");
 });
-
+app.use(cookieParser());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

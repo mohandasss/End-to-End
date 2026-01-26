@@ -4,14 +4,14 @@ let prisma;
 
 async function getPrisma() {
   if (!prisma) {
-    console.log('[DB] Initializing Prisma Client...');
+    // console.log('[DB] Initializing Prisma Client...');
     prisma = new PrismaClient({
       log: ['query', 'info', 'warn', 'error'],
     });
     
     // Test connection
     await prisma.$connect();
-    console.log('[DB] Database connected successfully!');
+    // console.log('[DB] Prisma Client connected successfully.');
   }
   return prisma;
 }
