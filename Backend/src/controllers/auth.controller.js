@@ -2,6 +2,7 @@ import {
   LoginService,
   RefreshTokenService,
   RegisterService,
+  LogoutService,
 } from "../services/auth.service.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { successResponse } from "../utils/response.js";
@@ -62,7 +63,15 @@ export const refreshTokenController = asyncHandler(async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
-  return successResponse(res, 200, "tokens refreshed successfully", {
-    
-  });
+  return successResponse(res, 200, "tokens refreshed successfully", {});
+});
+
+export const LogoutController = asyncHandler(async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
+
+  await LogoutService(refreshToken);
+
+  return successResponse(res, 200, "Logged out successfully", {});
 });

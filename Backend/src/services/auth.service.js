@@ -131,3 +131,15 @@ export const RefreshTokenService = async (refreshToken) => {
     refreshToken: newRefreshToken,
   };
 };
+
+export const LogoutService = async (refreshToken) => {
+  const prisma = await getPrisma();
+
+  await prisma.refreshToken.deleteMany({
+    where: {
+      token: refreshToken,
+    },
+  });
+
+  return;
+};
