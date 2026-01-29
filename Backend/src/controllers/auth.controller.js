@@ -38,7 +38,7 @@ export const LoginController = asyncHandler(async (req, res) => {
 
   return successResponse(res, 200, "User logged in successfully", user);
 });
-
+// Refresh Token Controller
 export const refreshTokenController = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   console.log("Refresh Token:", refreshToken);
@@ -65,7 +65,7 @@ export const refreshTokenController = asyncHandler(async (req, res) => {
 
   return successResponse(res, 200, "tokens refreshed successfully", {});
 });
-
+// Logout Controller
 export const LogoutController = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   res.clearCookie("accessToken");

@@ -13,7 +13,7 @@ const router = Router();
 
 router.post("/register", validate(registerSchema), RegisterController);
 router.post("/login", validate(loginSchema), LoginController);
-router.get("/refresh", refreshTokenController);
+router.get("/refresh", authMiddleware ,  refreshTokenController);
 router.post("/logout", authMiddleware, LogoutController);
 
 export default router;
