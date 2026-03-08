@@ -1,9 +1,17 @@
 import getPrisma from "../config/db.js";
 import { paginateResponse } from "../../utils/paginationResponse.js";
+import { snowflake } from "../utils/snowflake.js";
 export const createUserService = async (data) => {
+  console.log("Service - createUserService called with:", data);
+  const addeduser = {
+    id: snowflake.generate().toString(),
+    name: data.name,
+    email: data.email,
+    password: data.password,
+  };
   try {
     const prisma = await getPrisma();
-    const user = await prisma.user.create({ data });
+    const user = await prisma.user.create({ data: addeduser });
     return user;
   } catch (err) {
     throw err;

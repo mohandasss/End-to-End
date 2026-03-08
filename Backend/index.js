@@ -5,6 +5,8 @@ import userRoutes from "./src/routes/user.routes.js";
 import { errorHandler } from "./src/middlewares/error.middleware.js";
 import getPrisma from "./src/config/db.js";
 import cookieParser from "cookie-parser";
+import fileuploads from "./src/routes/file.routes.js";
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -25,6 +27,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/upload", fileuploads); // Add this line to handle /api/profile routes
 
 
 

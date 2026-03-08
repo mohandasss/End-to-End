@@ -5,8 +5,8 @@ import { AppError } from "../utils/AppError.js";
 import { generateAccessToken } from "../utils/jwt.js";
 
 export const RegisterService = async (data) => {
-  const { name, email, password } = data;
-
+  const { name, email, password, role } = data;
+  console.log("sdasdas", data);
   const prisma = await getPrisma();
   // 1️⃣ Check if user exists
   const existingUser = await prisma.user.findUnique({
@@ -27,11 +27,13 @@ export const RegisterService = async (data) => {
       name,
       email,
       password: hashedPassword,
+      role: role ? role.toUpperCase() : undefined, // ensure case matches enum
     },
     select: {
       id: true,
       name: true,
       email: true,
+      role: true,
     },
   });
 
@@ -57,11 +59,12 @@ export const LoginService = async (email, password) => {
     throw new AppError("wrong password", 401);
   }
 
-  // access token
+  // access token (include role so middleware can use it)
   const AccessToken = generateAccessToken({
     id: user.id,
     email: user.email,
     name: user.name,
+    role: user.role,          // <-- added
   });
 
   // refresh token
@@ -81,6 +84,7 @@ export const LoginService = async (email, password) => {
       id: user.id,
       name: user.name,
       email: user.email,
+      role: user.role, // include role in the returned user object
     },
   };
 };
@@ -124,6 +128,7 @@ export const RefreshTokenService = async (refreshToken) => {
     id: user.id,
     email: user.email,
     name: user.name,
+    role: user.role, // include role when refreshing
   });
 
   return {
