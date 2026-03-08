@@ -20,6 +20,8 @@ model User {
   role          Role           @default(USER)
   createdAt     DateTime       @default(now())
   refreshTokens RefreshToken[]
+
+  @@index([createdAt, id])
 }
 
 model RefreshToken {
@@ -30,3 +32,6 @@ model RefreshToken {
   createdAt DateTime @default(now())
   expiresAt DateTime
 }
+
+
+

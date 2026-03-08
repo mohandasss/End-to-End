@@ -10,19 +10,33 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-// Test route
+
+
+
+
 app.get("/", (req, res) => {
   res.send("Server is running 🚀");
 });
 app.use(cookieParser());
-// Routes
+
+
+
+
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-// ❗ Error handler MUST be last
+
+
+
+
 app.use(errorHandler);
 
-// Start server
+
+
+
+
+
 (async () => {
   try {
     await getPrisma();

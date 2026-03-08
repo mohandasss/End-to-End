@@ -7,6 +7,7 @@ import {
 import { validateCreateUser } from "../validation/user.validation.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { successResponse } from "../utils/response.js";
+import { getPagination } from "../../utils/pagination.js";
 
 export const createUser = asyncHandler(async (req, res) => {
   try {
@@ -23,8 +24,11 @@ export const createUser = asyncHandler(async (req, res) => {
 });
 
 export const getUsers = asyncHandler(async (req, res) => {
+  const { page, limit, skip, search, sort } = getPagination(req.query);
+
+  console.log("[Controller] Fetching all users");
   try {
-    const users = await getAllUsersService();
+    const users = await getAllUsersService(page, limit, search, skip, sort);
     return successResponse(res, 200, "Users fetched successfully", users);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -37,7 +41,6 @@ export const getprofile = asyncHandler(async (req, res) => {
   const profile = await getProfileService(profileid);
   return successResponse(res, 200, "Profile fetched successfully", profile);
 });
-
 
 // Update Profile Controller
 export const updateProfile = asyncHandler(async (req, res) => {

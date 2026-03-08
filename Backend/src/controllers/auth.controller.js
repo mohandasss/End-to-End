@@ -7,7 +7,7 @@ import {
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { successResponse } from "../utils/response.js";
 
-// Register Controller
+
 export const RegisterController = asyncHandler(async (req, res, next) => {
   const user = await RegisterService(req.body);
   return successResponse(res, 201, "User registered successfully", user);
@@ -37,8 +37,19 @@ export const LoginController = asyncHandler(async (req, res) => {
   });
 
   return successResponse(res, 200, "User logged in successfully", user);
-});
-// Refresh Token Controller
+})
+
+
+
+
+
+
+
+
+
+
+
+
 export const refreshTokenController = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   console.log("Refresh Token:", refreshToken);
@@ -65,6 +76,23 @@ export const refreshTokenController = asyncHandler(async (req, res) => {
 
   return successResponse(res, 200, "tokens refreshed successfully", {});
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Logout Controller
 export const LogoutController = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies.refreshToken;

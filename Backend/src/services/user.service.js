@@ -1,5 +1,5 @@
 import getPrisma from "../config/db.js";
-
+import { paginateResponse } from "../../utils/paginationResponse.js";
 export const createUserService = async (data) => {
   try {
     const prisma = await getPrisma();
@@ -10,11 +10,38 @@ export const createUserService = async (data) => {
   }
 };
 
-export const getAllUsersService = async () => {
+export const getAllUsersService = async (page, limit, search, skip, sort) => {
+  console.log("Service - getAllUsersService called with:", skip);
   try {
     const prisma = await getPrisma();
-    const users = await prisma.user.findMany();
-    return users;
+    const users = await prisma.user.findMany({
+      skip: skip,
+      take: limit,
+      where: {
+        name: {
+          contains: search,
+        },
+      },
+      orderBy: {
+        [sort]: "desc",
+      },
+    });
+
+    //total count
+    const total = await prisma.user.count({
+      where: {
+        name: {
+          contains: search,
+        },
+      },
+    });
+
+    return paginateResponse({
+      data: users,
+      total,
+      page,
+      limit,
+    });
   } catch (err) {
     throw err;
   }
