@@ -12,23 +12,14 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-
-
-
-
 app.get("/", (req, res) => {
   res.send("Server is running 🚀");
 });
 app.use(cookieParser());
 
-
-
-
-
-                app.use("/api/auth", authRoutes);
-                app.use("/api/users", userRoutes);
-                app.use("/api/upload", fileuploads); // Add this line to handle /api/profile routes
-
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/upload", fileuploads); // Add this line to handle /api/profile routes
 
 app.use(errorHandler);
 

@@ -3,10 +3,10 @@ import {
   RefreshTokenService,
   RegisterService,
   LogoutService,
+  ResetPasswordService,
 } from "../services/auth.service.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { successResponse } from "../utils/response.js";
-
+import { errorResponse, successResponse } from "../utils/response.js";
 
 export const RegisterController = asyncHandler(async (req, res, next) => {
   const user = await RegisterService(req.body);
@@ -37,18 +37,7 @@ export const LoginController = asyncHandler(async (req, res) => {
   });
 
   return successResponse(res, 200, "User logged in successfully", user);
-})
-
-
-
-
-
-
-
-
-
-
-
+});
 
 export const refreshTokenController = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
@@ -77,22 +66,6 @@ export const refreshTokenController = asyncHandler(async (req, res) => {
   return successResponse(res, 200, "tokens refreshed successfully", {});
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Logout Controller
 export const LogoutController = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
@@ -102,4 +75,24 @@ export const LogoutController = asyncHandler(async (req, res) => {
   await LogoutService(refreshToken);
 
   return successResponse(res, 200, "Logged out successfully", {});
+});
+
+export const ResetPasswordController = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return errorResponse(res, 400, "Email is required");
+  }
+
+  const response = await ResetPasswordService(email);
+  console.log("Reset Password Response:", response);
+  if (!response) {
+    return errorResponse(res, 500, "Failed to send reset password email");
+  }
+
+  return successResponse(
+    res,
+    200,
+    "Reset password email sent successfully",
+    {},
+  );
 });

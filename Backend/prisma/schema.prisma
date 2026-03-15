@@ -22,8 +22,10 @@ model User {
   // ADD THESE TWO LINES
   profileImage String? // The Cloudinary URL (Optional)
 
-  createdAt     DateTime       @default(now())
-  refreshTokens RefreshToken[]
+  createdAt              DateTime       @default(now())
+  refreshTokens          RefreshToken[]
+  resetPasswordToken     String?
+  resetPasswordExpiresAt DateTime?
 
   @@index([createdAt, id])
 }

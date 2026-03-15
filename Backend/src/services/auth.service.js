@@ -1,8 +1,10 @@
 import getPrisma from "../config/db.js";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import { snowflake } from "../utils/snowflake.js";
 import { AppError } from "../utils/AppError.js";
 import { generateAccessToken } from "../utils/jwt.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 export const RegisterService = async (data) => {
   const { name, email, password, role } = data;
@@ -64,7 +66,7 @@ export const LoginService = async (email, password) => {
     id: user.id,
     email: user.email,
     name: user.name,
-    role: user.role,          // <-- added
+    role: user.role, // <-- added
   });
 
   // refresh token
@@ -149,5 +151,48 @@ export const LogoutService = async (refreshToken) => {
   return;
 };
 
+export const ResetPasswordService = async (email) => {
+  const prisma = await getPrisma();
 
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
 
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const resetToken = crypto.randomUUID();
+    const expdate = new Date(Date.now() + 60 * 60 * 1000);
+
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        resetPasswordToken: resetToken,
+        resetPasswordExpiresAt: expdate,
+      },
+    });
+
+    const resetURL = `http://localhost:5173/reset-password/${resetToken}`;
+
+    await sendEmail(
+      user.email,
+      "Password Reset Request",
+      `<p>You requested a password reset. Click <a href="${resetURL}">here</a> to reset your password. This link will expire in 1 hour.</p>`,
+    );
+
+    return true;
+  } catch (error) {
+    // Keep the original error for debugging
+    console.error("ResetPasswordService error:", error);
+    throw new AppError(
+      `Failed to reset password. ${error.message}`,
+      500,
+    );
+  }
+};
