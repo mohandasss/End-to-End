@@ -25,20 +25,12 @@ app.use(cookieParser());
 
 
 
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/upload", fileuploads); // Add this line to handle /api/profile routes
-
-
-
+                app.use("/api/auth", authRoutes);
+                app.use("/api/users", userRoutes);
+                app.use("/api/upload", fileuploads); // Add this line to handle /api/profile routes
 
 
 app.use(errorHandler);
-
-
-
-
-
 
 (async () => {
   try {

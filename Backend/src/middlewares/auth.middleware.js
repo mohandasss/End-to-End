@@ -8,5 +8,6 @@ export const authMiddleware = (req, res, next) => {
   // Here you would typically verify the token
   const decoded = verifyAccessToken(accessToken);
   req.user = decoded;
+  console.log("Authenticated user:", req.user);
   next();
 };
