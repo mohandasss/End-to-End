@@ -7,8 +7,10 @@ import {
 } from "../services/auth.service.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { errorResponse, successResponse } from "../utils/response.js";
+import { logger } from "../utils/logger.js";
 
 export const RegisterController = asyncHandler(async (req, res, next) => {
+  logger.warn("RegisterController called with body: ", req.body);
   const user = await RegisterService(req.body);
   return successResponse(res, 201, "User registered successfully", user);
 });
