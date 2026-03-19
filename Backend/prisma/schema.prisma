@@ -26,6 +26,7 @@ model User {
   refreshTokens          RefreshToken[]
   resetPasswordToken     String?
   resetPasswordExpiresAt DateTime?
+  post                   Post[]
 
   @@index([createdAt, id])
 }
@@ -37,4 +38,29 @@ model RefreshToken {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   expiresAt DateTime
+}
+
+model Post {
+  id       String     @id @default(cuid())
+  title    String
+  content  String
+  userId   String
+  user     User       @relation(fields: [userId], references: [id])
+  comments Comments[]
+  tags     Tags[] // Array of strings for tags
+
+  tagsId String?
+}
+
+model Comments {
+  id      String @id @default(cuid())
+  content String
+  postId  String
+  post    Post   @relation(fields: [postId], references: [id])
+}
+
+model Tags {
+  id   String @id @default(cuid())
+  name String @unique
+  Post Post[]
 }

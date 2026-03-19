@@ -6,6 +6,7 @@ import { errorHandler } from "./src/middlewares/error.middleware.js";
 import getPrisma from "./src/config/db.js";
 import cookieParser from "cookie-parser";
 import fileuploads from "./src/routes/file.routes.js";
+import postRoutes from "./src/routes/post.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/upload", fileuploads); // Add this line to handle /api/profile routes
+app.use("/api/posts", postRoutes); // Add this line to handle /api/posts routes
 
 app.use(errorHandler);
 
