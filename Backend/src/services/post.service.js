@@ -1,28 +1,46 @@
 import getPrisma from "../config/db.js";
-import { successResponse } from "../utils/response.js";
 
-
-
-export const createPost = async (req , res) => {
-  const { title, content } = req.body;
-  const userId = req.user.id;
+export const createPost = async ({ title, content, tags, userId }) => {
+  console.log("Creating post with data:", { title, content, tags, userId });
   const prisma = await getPrisma();
+
   const response = await prisma.post.create({
     data: {
       title,
       content,
-      user :{
-        connect :{
-          id : userId
-        }
-      }
+      tags: {
+        connectOrCreate: tags.map((tags) => ({
+          where: {
+            name: tags,
+          },
+          create: {
+            name: tags,
+          },
+        })),
+      },
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
     },
     select: {
       id: true,
       title: true,
       content: true,
+      tags: true,
     },
   });
 
-  return successResponse(res, 200, "Post created successfully", response);
+  return response;
+};
+
+export const getAllPosts = async ({ userId }) => {
+  const prisma = await getPrisma();
+  const posts = await prisma.post.findMany({
+    where: {
+      userId: userId,
+    },
+  });
+  return posts;
 };

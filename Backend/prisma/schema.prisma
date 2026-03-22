@@ -41,15 +41,17 @@ model RefreshToken {
 }
 
 model Post {
-  id       String     @id @default(cuid())
-  title    String
-  content  String
-  userId   String
-  user     User       @relation(fields: [userId], references: [id])
-  comments Comments[]
-  tags     Tags[] // Array of strings for tags
-
-  tagsId String?
+  id        String     @id @default(cuid())
+  title     String
+  content   String
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
+  comments  Comments[]
+  tags      Tags[] // Array of strings for tags
+  isDeleted Boolean    @default(false)
+  deletedAt DateTime?
+  createdAt DateTime @default(now())
+  deletedBy String?   // Store the ID of the user who deleted the post (optional)
 }
 
 model Comments {
