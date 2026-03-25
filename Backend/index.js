@@ -7,6 +7,8 @@ import getPrisma from "./src/config/db.js";
 import cookieParser from "cookie-parser";
 import fileuploads from "./src/routes/file.routes.js";
 import postRoutes from "./src/routes/post.routes.js";
+import { connectRedis } from "./config/redis.js";
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -36,3 +38,5 @@ app.use(errorHandler);
     process.exit(1);
   }
 })();
+
+await connectRedis();

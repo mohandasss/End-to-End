@@ -1,13 +1,18 @@
 import React from "react";
 import { Button, Title } from "@mantine/core";
+import { BrowserRouter , Routes , Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
 const App = () => {
-  const message =
-    "Welcome to your React application with Mantine and Express backend!";
+  
   return (
     <div>
-      <Title order={2}>React + Mantine + Express</Title>
-      <p>{message}</p>
-      <Button mt="md">Mantine Button</Button>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage/>}  />
+        </Routes>
+        
+      </BrowserRouter>
+      
     </div>
   );
 };
