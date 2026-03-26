@@ -1,7 +1,15 @@
 import { TextInput, PasswordInput } from "@mantine/core";
 import { useState } from "react";
 import { Button } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../store/store";
 const LoginPage = () => {
+  const { setuser, username, password: storePassword } = useAuthContext();
+  console.log("stored data  ====>>>> ", {
+    username,
+    storePassword,
+  });
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -16,10 +24,13 @@ const LoginPage = () => {
     }
     if (email != user.email || password != user.password) {
       console.log("Login UNsucessfull");
+      navigate("/sucessfull");
     }
 
     if (email === user.email && password === user.password) {
       console.log("Login sucessfull");
+      setuser(email, password);
+      navigate("/sucessfull");
     }
   };
 
