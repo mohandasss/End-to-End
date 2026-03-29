@@ -6,6 +6,8 @@ import PublicRoutes from "./Guards/PublicRoutes";
 import PrivateRoutes from "./Guards/PrivateRoutes";
 import Dashboard from "./pages/Dashboard";
 import AppLayout from "./layout/AppLayout";
+import BookingForm from "./pages/BookingForm";
+import AppointmentList from "./pages/AppointmentList";
 
 const App = () => {
   return (
@@ -24,6 +26,9 @@ const App = () => {
               <Route path="/successful" element={<SuccessPage />} />
               <Route path="/authenticated" element={<AuthenticatedPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/booking" element={<BookingForm />} />
+              
+               <Route path="/appointment-list" element={<AppointmentList />} />
             </Route>
           </Route>
         </Routes>

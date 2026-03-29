@@ -19,7 +19,7 @@ const AppLayout = () => {
           onClick={() => setopen(!open)}
         />
       </div>
-      <div className="flex-1  bg-blue-800">
+      <div className="flex-1  bg-gray-100">
         <div className="flex flex-col h-full">
           <Header />
           <div className="flex-1 overflow-y-auto">
