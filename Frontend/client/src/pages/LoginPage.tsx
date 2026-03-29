@@ -24,9 +24,10 @@ const LoginPage = () => {
     }
     if (email != user.email || password != user.password) {
       console.log("Login UNsucessfull");
-      navigate("/sucessfull");
+      // navigate("/sucessfull");
     }
 
+    
     if (email === user.email && password === user.password) {
       console.log("Login sucessfull");
       setuser(email, password);

@@ -1,20 +1,33 @@
-import React from "react";
-import { Button, Title } from "@mantine/core";
-import { BrowserRouter , Routes , Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SuccessPage from "./pages/SuccessPage";
+import AuthenticatedPage from "./pages/AuthenticatedPage";
+import PublicRoutes from "./Guards/PublicRoutes";
+import PrivateRoutes from "./Guards/PrivateRoutes";
+import Dashboard from "./pages/Dashboard";
+import AppLayout from "./layout/AppLayout";
+
 const App = () => {
-  
   return (
     <div>
       <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage/>}  />
-        <Route path="/sucessfull" element={<SuccessPage/>}  />
+        <Routes>
+          {/* Layout wraps ALL pages */}
+          <Route element={<AppLayout />}>
+            {/* Public Routes */}
+            <Route element={<PublicRoutes />}>
+              <Route path="/login" element={<LoginPage />} />
+            </Route>
+
+            {/* Private Routes */}
+            <Route element={<PrivateRoutes />}>
+              <Route path="/successful" element={<SuccessPage />} />
+              <Route path="/authenticated" element={<AuthenticatedPage />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
+          </Route>
         </Routes>
-        
       </BrowserRouter>
-      
     </div>
   );
 };
