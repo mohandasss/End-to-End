@@ -8,18 +8,27 @@ import Dashboard from "./pages/Dashboard";
 import AppLayout from "./layout/AppLayout";
 import BookingForm from "./pages/BookingForm";
 import AppointmentList from "./pages/AppointmentList";
+import AuthLayout from "./layout/AuthLayout";
+import LoginForm from "./pages/Login/LoginForm";
+import ForgotPasswordForm from "./pages/ForgotPassword/ForgotPasswordForm";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
         <Routes>
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/forgot-Password" element={<ForgotPasswordForm />} />
+            
+          </Route>
+
           {/* Layout wraps ALL pages */}
           <Route element={<AppLayout />}>
             {/* Public Routes */}
-            <Route element={<PublicRoutes />}>
+            {/* <Route element={<PublicRoutes />}>
               <Route path="/login" element={<LoginPage />} />
-            </Route>
+            </Route> */}
 
             {/* Private Routes */}
             <Route element={<PrivateRoutes />}>
@@ -27,8 +36,8 @@ const App = () => {
               <Route path="/authenticated" element={<AuthenticatedPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/booking" element={<BookingForm />} />
-              
-               <Route path="/appointment-list" element={<AppointmentList />} />
+
+              <Route path="/appointment-list" element={<AppointmentList />} />
             </Route>
           </Route>
         </Routes>
