@@ -11,6 +11,9 @@ import AppointmentList from "./pages/AppointmentList";
 import AuthLayout from "./layout/AuthLayout";
 import LoginForm from "./pages/Login/LoginForm";
 import ForgotPasswordForm from "./pages/ForgotPassword/ForgotPasswordForm";
+import Home from "./pages/Home/Home";
+
+// import { Home } from "lucide-react";
 
 const App = () => {
   return (
@@ -29,15 +32,16 @@ const App = () => {
             {/* <Route element={<PublicRoutes />}>
               <Route path="/login" element={<LoginPage />} />
             </Route> */}
+            <Route index element={<Home />} />
 
             {/* Private Routes */}
             <Route element={<PrivateRoutes />}>
-              <Route path="/successful" element={<SuccessPage />} />
+              {/* <Route path="/successful" element={<SuccessPage />} />
               <Route path="/authenticated" element={<AuthenticatedPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/booking" element={<BookingForm />} />
 
-              <Route path="/appointment-list" element={<AppointmentList />} />
+              <Route path="/appointment-list" element={<AppointmentList />} /> */}
             </Route>
           </Route>
         </Routes>

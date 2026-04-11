@@ -9,7 +9,7 @@ const AppLayout = () => {
   return (
     <div className=" max-h-full mx-auto flex  ">
       <div
-        className={`bg-red-500 transition-all duration-300 h-screen flex p-4 justify-between text-white ${open ? "w-64" : "w-16"}  `}
+        className={`bg-[#0d0d0c] transition-all duration-300 h-screen flex p-4 justify-between text-white ${open ? "w-64" : "w-16"}  `}
       >
         <h1 className={`${!open ? "hidden" : ""}`}>Sidebar</h1>
         <ArrowLeftFromLine
@@ -21,11 +21,11 @@ const AppLayout = () => {
       </div>
       <div className="flex-1  bg-gray-100">
         <div className="flex flex-col h-full">
-          <Header />
-          <div className="flex-1 overflow-y-auto">
+          {/* <Header /> */}
+          <div className="flex-1 bg-[#10100f] overflow-y-auto">
             <Outlet />
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
     </div>
