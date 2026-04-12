@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight, Crown } from "lucide-react";
 import CardSlide from "./CardSlide";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useState } from "react";
 
 const data = [
   {
@@ -45,6 +46,11 @@ const data = [
 ];
 
 const FeatureSection = () => {
+  const totalSlides = data.length;
+  const [index, setindex] = useState(0);
+
+  const visibleItems = 3;
+
   return (
     <div className="font-poppins mt-32 mx-4 ">
       <div className="px-4 flex justify-between items-center mr-16  mb-6">
